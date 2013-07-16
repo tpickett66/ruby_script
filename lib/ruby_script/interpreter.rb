@@ -20,5 +20,9 @@ module RubyScript
       car, *cdr = *sexp
       process(cdr.flatten(1))
     end
+
+    def process_lit(sexp)
+      sexp.last
+    end
   end
 end
