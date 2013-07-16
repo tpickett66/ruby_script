@@ -52,5 +52,18 @@ module RubyScript
       _, exp = sexp
       process(exp[0])
     end
+
+    def process_resolve(sexp)
+      _, res = sexp
+
+      case res
+      when "NaN"
+        Float::NAN
+      when "undefined"
+        nil
+      else
+        raise "Unknown symbol to resolve: #{ res }, sexp: #{ sexp.inspect }"
+      end
+    end
   end
 end
