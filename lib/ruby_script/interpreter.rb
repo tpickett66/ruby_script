@@ -25,6 +25,12 @@ module RubyScript
       sexp.last
     end
 
+    def process_str(sexp)
+      str = sexp.last
+      quote = str[0]
+      str[1, str.length - 2].gsub(/\\#{quote}/, quote)
+    end
+
     def process_add(sexp)
       _, *args = sexp
       args.map{|lit| process(lit) }.reduce(0){|a, v| a + v}
