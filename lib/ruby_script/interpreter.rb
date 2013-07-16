@@ -65,5 +65,9 @@ module RubyScript
         raise "Unknown symbol to resolve: #{ res }, sexp: #{ sexp.inspect }"
       end
     end
+
+    def process_nil(sexp)
+      nil
+    end
   end
 end
