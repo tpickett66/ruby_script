@@ -47,7 +47,9 @@ module RubyScript
     def process_if(sexp)
       _, cond, t, f = sexp
 
-      if process(cond)
+      cond_result = process(cond)
+
+      unless [false, 0, Float::NAN, nil, ""].include?(cond_result)
         process(t)
       else
         process(f)
