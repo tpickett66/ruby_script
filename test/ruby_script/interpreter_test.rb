@@ -13,6 +13,10 @@ module RubyScript
       assert_eval 9, '6 + 3;'
     end
 
+    def test_true
+      assert_eval true, 'true'
+    end
+
     private
 
     def assert_eval(expression, source, message = nil)

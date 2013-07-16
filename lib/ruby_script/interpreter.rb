@@ -29,5 +29,9 @@ module RubyScript
       _, *args = sexp
       args.map{|lit| process(lit) }.reduce(0){|a, v| a + v}
     end
+
+    def process_true(sexp)
+      true
+    end
   end
 end
