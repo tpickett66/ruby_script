@@ -33,5 +33,24 @@ module RubyScript
     def process_true(sexp)
       true
     end
+
+    def process_false(sexp)
+      false
+    end
+
+    def process_if(sexp)
+      _, cond, t, f = sexp
+
+      if process(cond)
+        process(t)
+      else
+        process(f)
+      end
+    end
+
+    def process_block(sexp)
+      _, exp = sexp
+      process(exp[0])
+    end
   end
 end
