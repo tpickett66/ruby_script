@@ -9,5 +9,11 @@ module RubyScript
       super
       @parser = RKelly::Parser.new
     end
+
+    def eval(source)
+      ast = parser.parse(source)
+      sexps = ast.to_sexp[0]
+      process(sexps)
+    end
   end
 end
