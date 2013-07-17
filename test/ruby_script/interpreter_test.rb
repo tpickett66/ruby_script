@@ -30,6 +30,13 @@ module RubyScript
       assert_eval 24, 'if ( "" ) { 42 } else { 24 }', "Expected empty string to be falsey"
     end
 
+    def test_assignment
+      assert_eval 42, 'x = 42; x'
+      # assert_eval 42, 'var x; x = 42; x' # rabbit hole!
+      # assert_eval 42, 'var x = 42; x' # rabbit hole!
+      # assert_eval nil, 'var x, y, z;' # rabbit hole!
+    end
+
     private
 
     def assert_eval(expression, source, message = nil)

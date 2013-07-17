@@ -7,13 +7,19 @@ module RubyScript
 
     def initialize
       super
+      @stack = {} # Hackity hackity hackity hack!
       @parser = RKelly::Parser.new
     end
 
     def eval(source)
       ast = parser.parse(source)
-      sexps = ast.to_sexp[0]
-      process(sexps)
+      raise "Unable to parser JS: #{ source }" if ast.nil?
+      sexps = ast.to_sexp
+      result = ''
+      sexps.each do |expression|
+        result = process(expression)
+      end
+      result
     end
 
     def process_expression(sexp)
@@ -70,12 +76,20 @@ module RubyScript
       when "undefined"
         nil
       else
-        raise "Unknown symbol to resolve: #{ res }, sexp: #{ sexp.inspect }"
+        @stack[res]
       end
     end
 
     def process_nil(sexp)
       nil
+    end
+
+    def process_op_equal(sexp)
+      resolve_sexp = sexp[1]
+      raise ArgumentError, "We don't know what's happening in this assignment: #{ sexp.inspect }" unless resolve_sexp[0] == :resolve
+      assign_to = resolve_sexp[1]
+      value = process(sexp[2])
+      @stack[assign_to] = value
     end
   end
 end
