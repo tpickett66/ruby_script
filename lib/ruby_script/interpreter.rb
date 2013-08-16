@@ -93,8 +93,7 @@ module RubyScript
     end
 
     def process_func_expr(sexp)
-      fun = [sexp[2], sexp[3]]
-      fun
+      extract_function_from(sexp)
     end
 
     def process_function_call(sexp)
@@ -117,13 +116,17 @@ module RubyScript
 
     def process_func_decl(sexp)
       name = sexp[1]
-      fun = [sexp[2], sexp[3]]
-      @stack[name] = fun
-      fun
+      @stack[name] = extract_function_from(sexp)
     end
 
     def process_empty(sexp)
       nil
+    end
+
+    private
+
+    def extract_function_from(sexp)
+      [sexp[2], sexp[3]]
     end
   end
 end
