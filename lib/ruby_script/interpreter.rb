@@ -93,9 +93,7 @@ module RubyScript
     end
 
     def process_func_expr(sexp)
-      name = sexp[1]
       fun = [sexp[2], sexp[3]]
-      @stack[name] = fun unless name == 'function'
       fun
     end
 
@@ -115,6 +113,17 @@ module RubyScript
         end
       end
       ret_val
+    end
+
+    def process_func_decl(sexp)
+      name = sexp[1]
+      fun = [sexp[2], sexp[3]]
+      @stack[name] = fun
+      fun
+    end
+
+    def process_empty(sexp)
+      nil
     end
   end
 end
