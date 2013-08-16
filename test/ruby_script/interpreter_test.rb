@@ -37,6 +37,11 @@ module RubyScript
       # assert_eval nil, 'var x, y, z;' # rabbit hole!
     end
 
+    def test_argless_function
+      assert_eval 42, 'myFun = function () { return 42; }; myFun()'
+      assert_eval 42, 'function myFun() { return 42; }; myFun()'
+    end
+
     private
 
     def assert_eval(expression, source, message = nil)

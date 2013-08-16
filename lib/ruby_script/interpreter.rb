@@ -13,7 +13,7 @@ module RubyScript
 
     def eval(source)
       ast = parser.parse(source)
-      raise "Unable to parser JS: #{ source }" if ast.nil?
+      raise "Unable to parse JS: #{ source }" if ast.nil?
       sexps = ast.to_sexp
       result = ''
       sexps.each do |expression|
@@ -90,6 +90,31 @@ module RubyScript
       assign_to = resolve_sexp[1]
       value = process(sexp[2])
       @stack[assign_to] = value
+    end
+
+    def process_func_expr(sexp)
+      name = sexp[1]
+      fun = [sexp[2], sexp[3]]
+      @stack[name] = fun unless name == 'function'
+      fun
+    end
+
+    def process_function_call(sexp)
+      function_called = process sexp[1]
+      process function_called[1]
+    end
+
+    def process_func_body(sexp)
+      ret_val = nil
+      sexp[1].each do |sub_sexp|
+        if sub_sexp[0] == :return
+          ret_val = process sub_sexp[1]
+          break
+        else
+          process sub_sexp
+        end
+      end
+      ret_val
     end
   end
 end
