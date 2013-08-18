@@ -1,4 +1,5 @@
 log/
 *.DS_Store
 css/
+.sass-cache*
 index.html
