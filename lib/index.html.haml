@@ -1,0 +1,43 @@
+!!! 5
+%html{lang:'en'}
+  %head
+    %meta{ charset:'utf-8' }
+    %meta{ name:'viewport', content:'width=1024' }
+    %meta{ name:'apple-mobile-web-app-capable', content:'yes' }
+    %title
+      Ruby Script
+
+    %meta{ name:'description', content:'An attempt to build a super basic ECMA script interpreter in Ruby.' }
+    %meta{ name:'author', content: 'Tyler Pickett' }
+
+    %link{href:"http://fonts.googleapis.com/css?family=Montserrat+Alternates|Droid+Sans+Mono", rel:"stylesheet"}
+
+    %link{ rel: "stylesheet", href: "css/ruby-script.css" }
+    %link{ rel: 'shortcut icon', href:'favicon.png' }
+    %link{ rel: 'apple-touch-icon', href: 'apple-touch-icon.png' }
+
+  %body.impress-not-supported
+    .fallback-message
+      %p
+        Your browser
+        %b doesn't support all of the features required
+        by impress.js, so you are presented with a simplified version of this presentation.
+      %p
+        For the best experience please use the latest version of Chrome, Safari or Firefox
+
+    #impress
+      #title.step{"data-x"=>"0", "data-y"=>"0", "data-scale"=>2}
+        %h1 RubyScript
+        %h4 An ECMAScript Experience
+
+      #whoami.step{"data-x"=>"0", "data-y"=>"1024"}
+        Tyler Pickett
+        %br
+        Twitter/Github: tpickett66
+
+      #employer.step{"data-x"=>"0", "data-y"=>"2048"}
+        %embed{'type'=>"image/svg+xml", 'src' => 'images/12spokes-logo.svg'}
+
+    %script{src: 'js/impress.js'}
+    :javascript
+      impress().init();

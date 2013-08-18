@@ -1,0 +1,47 @@
+@import "clear.scss";
+@import "solarized.scss";
+
+/* My fonts...
+font-family: 'Average Sans', sans-serif;
+font-family: 'Montserrat Alternates', sans-serif;
+font-family: 'Strait', sans-serif;
+font-family: 'Montserrat', sans-serif;
+*/
+
+body { pointer-events: none; }
+body.impress-supported .fallback-message { display: none; }
+#impress { pointer-events: auto; }
+
+/* Common Step Stylers */
+.step {
+  text-align: center;
+  width: 1024px;
+  padding: 40px;
+
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing:    border-box;
+  -ms-box-sizing:     border-box;
+  -o-box-sizing:      border-box;
+  box-sizing:         border-box;
+
+  font-family: 'Montserrat Alternates', sans-serif;
+
+  font-size: 48px;
+  line-height: 1.5;
+
+  -webkit-transition: opacity 1s;
+  -moz-transition:    opacity 1s;
+  -ms-transition:     opacity 1s;
+  -o-transition:      opacity 1s;
+  transition:         opacity 1s;
+}
+
+/* fade out inactive slides */
+.step:not(.active) {
+    opacity: 0.1;
+}
+
+#title {
+  h1 { font-size: 150px; }
+  h2 { font-size: 75px; }
+}
