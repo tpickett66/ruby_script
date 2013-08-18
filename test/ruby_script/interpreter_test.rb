@@ -42,6 +42,10 @@ module RubyScript
       assert_eval 42, 'function myFun() { return 42; }; myFun()'
     end
 
+    def test_function_with_args
+      assert_eval 42, 'foo = function(bar) { return bar; }; foo(42);'
+    end
+
     private
 
     def assert_eval(expression, source, message = nil)

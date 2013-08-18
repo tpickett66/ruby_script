@@ -23,8 +23,7 @@ module RubyScript
     end
 
     def process_expression(sexp)
-      car, *cdr = *sexp
-      process(cdr.flatten(1))
+      process(sexp.rest)
     end
 
     def process_lit(sexp)
@@ -98,20 +97,20 @@ module RubyScript
 
     def process_function_call(sexp)
       function_called = process sexp[1]
+      args = sexp[2].rest
+      function_called[0].zip(args) {|name, value|
+        @stack[name] = process(value)
+      }
       process function_called[1]
     end
 
     def process_func_body(sexp)
-      ret_val = nil
-      sexp[1].each do |sub_sexp|
-        if sub_sexp[0] == :return
-          ret_val = process sub_sexp[1]
-          break
-        else
+      return_val = catch(:return) {
+        sexp.rest.each do |sub_sexp|
           process sub_sexp
         end
-      end
-      ret_val
+      }
+      return_val
     end
 
     def process_func_decl(sexp)
@@ -123,10 +122,15 @@ module RubyScript
       nil
     end
 
+    def process_return(sexp)
+      throw :return, process(sexp[1])
+    end
+
     private
 
     def extract_function_from(sexp)
-      [sexp[2], sexp[3]]
+      arg_names = sexp[2].map(&:last)
+      [arg_names, sexp[3]]
     end
   end
 end
