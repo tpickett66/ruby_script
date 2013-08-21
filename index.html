@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<meta content='width=1024' name='viewport'>
+<meta content='yes' name='apple-mobile-web-app-capable'>
+<title>
+Ruby Script
+</title>
+<meta content='An attempt to build a super basic ECMA script interpreter in Ruby.' name='description'>
+<meta content='Tyler Pickett' name='author'>
+<link href='http://fonts.googleapis.com/css?family=Montserrat+Alternates|Droid+Sans+Mono' rel='stylesheet'>
+<link href='css/ruby-script.css' rel='stylesheet'>
+<link href='favicon.png' rel='shortcut icon'>
+<link href='apple-touch-icon.png' rel='apple-touch-icon'>
+</head>
+<body class='impress-not-supported'>
+<div class='fallback-message'>
+<p>
+Your browser
+<b>doesn't support all of the features required</b>
+by impress.js, so you are presented with a simplified version of this presentation.
+</p>
+<p>
+For the best experience please use the latest version of Chrome, Safari or Firefox
+</p>
+</div>
+<div id='impress'>
+<div class='step' data-rotate='0' data-x='0' data-y='0' id='title'>
+<h1>RubyScript</h1>
+<h4>An ECMAScript Experience</h4>
+</div>
+<div class='step' data-rotate='45' data-x='921' data-y='921' id='whoami'>
+Tyler Pickett
+<br>
+Twitter/Github: tpickett66
+</div>
+<div class='step' data-rotate='88' data-x='57' data-y='1639' id='employer'>
+<embed src='images/12spokes-logo.svg' type='image/svg+xml'></embed>
+</div>
+<div class='section step' data-rotate='122' data-x='-1042' data-y='1668' id='what'>
+What?
+</div>
+<div class='step' data-rotate='151' data-x='-2009' data-y='1113' id='no_really'>
+<img src='images/Ruby_logo.png'>
++
+<img src='images/Ecma_RVB-003.jpg'>
+</div>
+<div class='section step' data-rotate='176' data-x='-2619' data-y='183' id='why'>
+Why?
+</div>
+<div class='step' data-rotate='198' data-x='-2809' data-y='-913' id='everest'>
+<img src='images/mount-everest.jpg' width='800px'>
+Image Source:
+<a href='http://www.nepal24hours.com/'>nepal24hours.com</a>
+</div>
+<div class='step' data-rotate='217' data-x='-2611' data-y='-1967' id='ryan_davis'>
+<img src='images/zenspider.jpg'>
+<a href='http://www.zenspider.com/'>www.zenspider.com</a>
+</div>
+<div class='step code-example' data-rotate='235' data-x='-2065' data-y='-2949'>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21</pre></div></td><td class="code"><div class="highlight"><pre><span class="c1"># interpreter.rb</span>
+<span class="nb">require</span> <span class="s1">&#39;sexp_processor&#39;</span>
+<span class="nb">require</span> <span class="s1">&#39;rkelly&#39;</span>
+
+<span class="k">class</span> <span class="nc">Interpreter</span> <span class="o">&lt;</span> <span class="no">SexpInterpreter</span>
+  <span class="kp">attr_reader</span> <span class="ss">:parser</span>
+
+  <span class="k">def</span> <span class="nf">initialize</span>
+    <span class="k">super</span>
+    <span class="vi">@stack</span> <span class="o">=</span> <span class="p">{}</span> <span class="c1"># hacky hacky hacky hack!</span>
+    <span class="vi">@parser</span> <span class="o">=</span> <span class="ss">RKelly</span><span class="p">:</span><span class="ss">:Parser</span><span class="o">.</span><span class="n">new</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">eval</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="c1"># interpreter_test.rb</span>
+<span class="nb">require</span> <span class="s1">&#39;test_helper&#39;</span>
+<span class="k">class</span> <span class="nc">RubyScriptTest</span> <span class="o">&lt;</span> <span class="ss">Minitest</span><span class="p">:</span><span class="ss">:Test</span>
+<span class="k">end</span>
+</pre></div>
+</td></tr></table>
+</div>
+<div class='code-example step' data-rotate='251' data-x='-1277' data-y='-3708'>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20</pre></div></td><td class="code"><div class="highlight"><pre><span class="c1"># interpreter_test.rb</span>
+<span class="nb">require</span> <span class="s1">&#39;test_helper&#39;</span>
+<span class="k">class</span> <span class="nc">RubyScriptTest</span> <span class="o">&lt;</span> <span class="ss">Minitest</span><span class="p">:</span><span class="ss">:Test</span>
+  <span class="kp">attr_accessor</span> <span class="ss">:int</span>
+
+  <span class="k">def</span> <span class="nf">setup</span>
+    <span class="nb">self</span><span class="o">.</span><span class="n">int</span> <span class="o">=</span> <span class="no">Interpreter</span><span class="o">.</span><span class="n">new</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">test_sanity</span>
+    <span class="n">assert_eval</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span>
+    <span class="n">assert_eval</span> <span class="mi">9</span><span class="p">,</span> <span class="s1">&#39;6 + 3;&#39;</span>
+  <span class="k">end</span>
+
+  <span class="kp">private</span>
+
+  <span class="k">def</span> <span class="nf">assert_eval</span><span class="p">(</span><span class="n">expression</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">message</span> <span class="o">=</span> <span class="kp">nil</span><span class="p">)</span>
+    <span class="n">assert_equal</span> <span class="n">expression</span><span class="p">,</span> <span class="n">int</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">source</span><span class="p">),</span> <span class="n">message</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre></div>
+</td></tr></table>
+</div>
+<div class='code-example step' data-rotate='266' data-x='-296' data-y='-4238'>
+<div class="highlight"><pre><span class="cp"># Running:</span>
+
+<span class="n">F</span>
+
+<span class="n">Fabulous</span> <span class="n">run</span> <span class="n">in</span> <span class="mf">0.028141</span><span class="n">s</span><span class="p">,</span> <span class="mf">35.5353</span> <span class="n">runs</span><span class="o">/</span><span class="n">s</span><span class="p">,</span> <span class="mf">35.5353</span> <span class="n">assertions</span><span class="o">/</span><span class="n">s</span><span class="p">.</span>
+
+  <span class="mi">1</span><span class="p">)</span> <span class="n">Failure</span><span class="o">:</span>
+<span class="n">RubyScript</span><span class="o">::</span><span class="n">InterpreterTest</span><span class="err">#</span><span class="n">test_sanity</span>
+<span class="nl">Expected:</span> <span class="mi">3</span>
+  <span class="nl">Actual:</span> <span class="n">nil</span>
+
+<span class="mi">1</span> <span class="n">runs</span><span class="p">,</span> <span class="mi">1</span> <span class="n">assertions</span><span class="p">,</span> <span class="mi">1</span> <span class="n">failures</span><span class="p">,</span> <span class="mi">0</span> <span class="n">errors</span><span class="p">,</span> <span class="mi">0</span> <span class="n">skips</span>
+</pre></div>
+</div>
+<div class='code-example step' data-rotate='280' data-x='795' data-y='-4510'>
+<div class="highlight"><pre><span class="lineno"> 1</span> <span class="k">module</span> <span class="nn">RubyScript</span>
+<span class="lineno"> 2</span>   <span class="k">class</span> <span class="nc">Interpreter</span> <span class="o">&lt;</span> <span class="no">SexpInterpreter</span>
+<span class="lineno"> 3</span> 
+<span class="lineno"> 4</span>     <span class="c1"># ... omitted ...</span>
+<span class="lineno"> 5</span>     <span class="k">def</span> <span class="nf">eval</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+<span class="lineno"> 6</span>       <span class="n">ast</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+<span class="lineno"> 7</span>       <span class="k">raise</span> <span class="s2">&quot;Unable to parse JS: </span><span class="si">#{</span> <span class="n">source</span> <span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">ast</span><span class="o">.</span><span class="n">nil?</span>
+<span class="lineno"> 8</span>       <span class="n">sexps</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">to_sexp</span>
+<span class="lineno"> 9</span>       <span class="n">result</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+<span class="lineno">10</span>       <span class="n">sexps</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">expression</span><span class="o">|</span>
+<span class="lineno">11</span>         <span class="n">result</span> <span class="o">=</span> <span class="n">process</span><span class="p">(</span><span class="n">expression</span><span class="p">)</span>
+<span class="lineno">12</span>       <span class="k">end</span>
+<span class="lineno">13</span>       <span class="n">result</span>
+<span class="lineno">14</span>     <span class="k">end</span>
+<span class="lineno">15</span>   <span class="k">end</span>
+<span class="lineno">16</span> <span class="k">end</span>
+</pre></div>
+</div>
+<div class='code-example step' data-rotate='293' data-x='1918' data-y='-4519'>
+<div class="highlight"><pre><span class="cp"># Running:</span>
+
+<span class="n">E</span>
+
+<span class="n">Fabulous</span> <span class="n">run</span> <span class="n">in</span> <span class="mf">0.020414</span><span class="n">s</span><span class="p">,</span> <span class="mf">48.9860</span> <span class="n">runs</span><span class="o">/</span><span class="n">s</span><span class="p">,</span> <span class="mf">0.0000</span> <span class="n">assertions</span><span class="o">/</span><span class="n">s</span><span class="p">.</span>
+
+  <span class="mi">1</span><span class="p">)</span> <span class="n">Error</span><span class="o">:</span>
+<span class="n">RubyScript</span><span class="o">::</span><span class="n">InterpreterTest</span><span class="err">#</span><span class="n">test_sanity</span><span class="o">:</span>
+<span class="nl">UnknownNodeError:</span> <span class="n">Bug</span><span class="o">!</span> <span class="n">Unknown</span> <span class="n">node</span><span class="o">-</span><span class="n">type</span> <span class="o">:</span><span class="n">expression</span> <span class="n">to</span> <span class="n">RubyScript</span><span class="o">::</span><span class="n">Interpreter</span>
+
+<span class="mi">1</span> <span class="n">runs</span><span class="p">,</span> <span class="mi">0</span> <span class="n">assertions</span><span class="p">,</span> <span class="mi">0</span> <span class="n">failures</span><span class="p">,</span> <span class="mi">1</span> <span class="n">errors</span><span class="p">,</span> <span class="mi">0</span> <span class="n">skips</span>
+</pre></div>
+</div>
+<div class='code-example step' data-rotate='305' data-x='3002' data-y='-4288'>
+<div class="highlight"><pre><span class="lineno">1</span> <span class="k">module</span> <span class="nn">RubyScript</span>
+<span class="lineno">2</span>   <span class="k">class</span> <span class="nc">Interpreter</span> <span class="o">&lt;</span> <span class="no">SexpInterpreter</span>
+<span class="lineno">3</span> 
+<span class="lineno">4</span>     <span class="k">def</span> <span class="nf">process_expression</span><span class="p">(</span><span class="n">sexp</span><span class="p">)</span>
+<span class="lineno">5</span>       <span class="k">raise</span> <span class="n">sexp</span><span class="o">.</span><span class="n">inspect</span>
+<span class="lineno">6</span>     <span class="k">end</span>
+<span class="lineno">7</span>   <span class="k">end</span>
+<span class="lineno">8</span> <span class="k">end</span>
+</pre></div>
+</div>
+<div class='code-example step' data-rotate='316' data-x='3993' data-y='-3856'>
+<div class="highlight"><pre><span class="cp"># Running:</span>
+
+<span class="n">E</span>
+
+<span class="n">Fabulous</span> <span class="n">run</span> <span class="n">in</span> <span class="mf">0.022017</span><span class="n">s</span><span class="p">,</span> <span class="mf">45.4194</span> <span class="n">runs</span><span class="o">/</span><span class="n">s</span><span class="p">,</span> <span class="mf">0.0000</span> <span class="n">assertions</span><span class="o">/</span><span class="n">s</span><span class="p">.</span>
+
+  <span class="mi">1</span><span class="p">)</span> <span class="n">Error</span><span class="o">:</span>
+<span class="n">RubyScript</span><span class="o">::</span><span class="n">InterpreterTest</span><span class="err">#</span><span class="n">test_sanity</span><span class="o">:</span>
+<span class="nl">RuntimeError:</span> <span class="p">[</span><span class="o">:</span><span class="n">expression</span><span class="p">,</span> <span class="p">[</span><span class="o">:</span><span class="n">lit</span><span class="p">,</span> <span class="mi">3</span><span class="p">]]</span>
+
+<span class="mi">1</span> <span class="n">runs</span><span class="p">,</span> <span class="mi">0</span> <span class="n">assertions</span><span class="p">,</span> <span class="mi">0</span> <span class="n">failures</span><span class="p">,</span> <span class="mi">1</span> <span class="n">errors</span><span class="p">,</span> <span class="mi">0</span> <span class="n">skips</span>
+</pre></div>
+</div>
+<div class='code-example step' data-rotate='326' data-x='4855' data-y='-3275'>
+<div class="highlight"><pre><span class="lineno"> 1</span> <span class="k">module</span> <span class="nn">RubyScript</span>
+<span class="lineno"> 2</span>   <span class="k">class</span> <span class="nc">Interpreter</span> <span class="o">&lt;</span> <span class="no">SexpInterpreter</span>
+<span class="lineno"> 3</span> 
+<span class="lineno"> 4</span>     <span class="k">def</span> <span class="nf">process_expression</span><span class="p">(</span><span class="n">sexp</span><span class="p">)</span>
+<span class="lineno"> 5</span>       <span class="n">process</span><span class="p">(</span><span class="n">sexp</span><span class="o">.</span><span class="n">rest</span><span class="p">)</span>
+<span class="lineno"> 6</span>     <span class="k">end</span>
+<span class="lineno"> 7</span> 
+<span class="lineno"> 8</span>     <span class="k">def</span> <span class="nf">process_lit</span><span class="p">(</span><span class="n">sexp</span><span class="p">)</span>
+<span class="lineno"> 9</span>       <span class="n">sexp</span><span class="o">.</span><span class="n">last</span>
+<span class="lineno">10</span>     <span class="k">end</span>
+<span class="lineno">11</span> 
+<span class="lineno">12</span>     <span class="k">def</span> <span class="nf">process_add</span><span class="p">(</span><span class="n">sexp</span><span class="p">)</span>
+<span class="lineno">13</span>       <span class="n">_</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span> <span class="o">=</span> <span class="n">sexp</span>
+<span class="lineno">14</span>       <span class="n">args</span><span class="o">.</span><span class="n">map</span><span class="p">{</span><span class="o">|</span><span class="n">lit</span><span class="o">|</span> <span class="n">process</span><span class="p">(</span><span class="n">lit</span><span class="p">)</span> <span class="p">}</span><span class="o">.</span><span class="n">reduce</span><span class="p">(</span><span class="mi">0</span><span class="p">){</span><span class="o">|</span><span class="n">a</span><span class="p">,</span> <span class="n">v</span><span class="o">|</span> <span class="n">a</span> <span class="o">+</span> <span class="n">v</span><span class="p">}</span>
+<span class="lineno">15</span>     <span class="k">end</span>
+<span class="lineno">16</span>   <span class="k">end</span>
+<span class="lineno">17</span> <span class="k">end</span>
+</pre></div>
+</div>
+<div class='code-example step' data-rotate='336' data-x='5644' data-y='-2513'>
+<div class="highlight"><pre><span class="cp"># Running:</span>
+
+<span class="p">.</span>
+
+<span class="n">Fabulous</span> <span class="n">run</span> <span class="n">in</span> <span class="mf">0.018114</span><span class="n">s</span><span class="p">,</span> <span class="mf">55.2059</span> <span class="n">runs</span><span class="o">/</span><span class="n">s</span><span class="p">,</span> <span class="mf">110.4118</span> <span class="n">assertions</span><span class="o">/</span><span class="n">s</span><span class="p">.</span>
+
+<span class="mi">1</span> <span class="n">runs</span><span class="p">,</span> <span class="mi">2</span> <span class="n">assertions</span><span class="p">,</span> <span class="mi">0</span> <span class="n">failures</span><span class="p">,</span> <span class="mi">0</span> <span class="n">errors</span><span class="p">,</span> <span class="mi">0</span> <span class="n">skips</span>
+</pre></div>
+</div>
+<div class='code-example step' data-rotate='345' data-x='6262' data-y='-1678'>
+<div class="highlight"><pre><span class="lineno"> 1</span> <span class="nb">require</span> <span class="s1">&#39;test_helper&#39;</span>
+<span class="lineno"> 2</span> 
+<span class="lineno"> 3</span> <span class="k">module</span> <span class="nn">RubyScript</span>
+<span class="lineno"> 4</span>   <span class="k">class</span> <span class="nc">InterpreterTest</span> <span class="o">&lt;</span> <span class="ss">Minitest</span><span class="p">:</span><span class="ss">:Unit</span><span class="o">::</span><span class="no">TestCase</span>
+<span class="lineno"> 5</span> 
+<span class="lineno"> 6</span>     <span class="k">def</span> <span class="nf">test_true</span>
+<span class="lineno"> 7</span>       <span class="n">assert_eval</span> <span class="kp">true</span><span class="p">,</span> <span class="s1">&#39;true&#39;</span>
+<span class="lineno"> 8</span>     <span class="k">end</span>
+<span class="lineno"> 9</span> 
+<span class="lineno">10</span>     <span class="k">def</span> <span class="nf">test_if</span>
+<span class="lineno">11</span>       <span class="n">assert_eval</span> <span class="mi">42</span><span class="p">,</span> <span class="s1">&#39;if (true) { 42 } else { 24 }&#39;</span>
+<span class="lineno">12</span>     <span class="k">end</span>
+<span class="lineno">13</span> 
+<span class="lineno">14</span>     <span class="k">def</span> <span class="nf">test_if_falsey</span>
+<span class="lineno">15</span>       <span class="n">assert_eval</span> <span class="mi">24</span><span class="p">,</span> <span class="s1">&#39;if ( false ) { 42 } else { 24 }&#39;</span>
+<span class="lineno">16</span>       <span class="n">assert_eval</span> <span class="mi">24</span><span class="p">,</span> <span class="s1">&#39;if ( 0 ) { 42 } else { 24 }&#39;</span><span class="p">,</span> <span class="s2">&quot;Expected 0 to be falsey but wasn&#39;t&quot;</span>
+<span class="lineno">17</span>       <span class="n">assert_eval</span> <span class="mi">24</span><span class="p">,</span> <span class="s1">&#39;if ( NaN ) { 42 } else { 24 }&#39;</span><span class="p">,</span> <span class="s2">&quot;Expected NaN to be falsey but wasn&#39;t&quot;</span>
+<span class="lineno">18</span>       <span class="n">assert_eval</span> <span class="mi">24</span><span class="p">,</span> <span class="s1">&#39;if ( undefined ) { 42 } else { 24 }&#39;</span><span class="p">,</span> <span class="s2">&quot;Expected undefined to be falsey but wasn&#39;t&quot;</span>
+<span class="lineno">19</span>       <span class="n">assert_eval</span> <span class="mi">24</span><span class="p">,</span> <span class="s1">&#39;if ( null ) { 42 } else { 24 }&#39;</span><span class="p">,</span> <span class="s2">&quot;Expected null to be falsey but wasn&#39;t&quot;</span>
+<span class="lineno">20</span>       <span class="n">assert_eval</span> <span class="mi">24</span><span class="p">,</span> <span class="s1">&#39;if ( &quot;&quot; ) { 42 } else { 24 }&#39;</span><span class="p">,</span> <span class="s2">&quot;Expected empty string to be falsey&quot;</span>
+<span class="lineno">21</span>     <span class="k">end</span>
+<span class="lineno">22</span>   <span class="k">end</span>
+<span class="lineno">23</span> <span class="k">end</span>
+</pre></div>
+</div>
+<div class='code-example step' data-rotate='354' data-x='6766' data-y='-711'>
+<div class="highlight"><pre><span class="lineno"> 1</span> <span class="k">class</span> <span class="nc">Interpreter</span> <span class="o">&lt;</span> <span class="no">SexpInterpreter</span>
+<span class="lineno"> 2</span>   <span class="k">def</span> <span class="nf">process_str</span><span class="p">(</span><span class="n">sexp</span><span class="p">)</span>
+<span class="lineno"> 3</span>     <span class="n">str</span> <span class="o">=</span> <span class="n">sexp</span><span class="o">.</span><span class="n">last</span><span class="p">;</span> <span class="n">quote</span> <span class="o">=</span> <span class="n">str</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>
+<span class="lineno"> 4</span>     <span class="n">str</span><span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">str</span><span class="o">.</span><span class="n">length</span> <span class="o">-</span> <span class="mi">2</span><span class="o">].</span><span class="n">gsub</span><span class="p">(</span><span class="sr">/\\</span><span class="si">#{</span><span class="n">quote</span><span class="si">}</span><span class="sr">/</span><span class="p">,</span> <span class="n">quote</span><span class="p">)</span>
+<span class="lineno"> 5</span>   <span class="k">end</span>
+<span class="lineno"> 6</span> 
+<span class="lineno"> 7</span>   <span class="k">def</span> <span class="nf">process_true</span><span class="p">(</span><span class="n">sexp</span><span class="p">);</span> <span class="kp">true</span><span class="p">;</span> <span class="k">end</span>
+<span class="lineno"> 8</span>   <span class="k">def</span> <span class="nf">process_false</span><span class="p">(</span><span class="n">sexp</span><span class="p">);</span> <span class="kp">false</span><span class="p">;</span> <span class="k">end</span>
+<span class="lineno"> 9</span> 
+<span class="lineno">10</span>   <span class="k">def</span> <span class="nf">process_if</span><span class="p">(</span><span class="n">sexp</span><span class="p">)</span>
+<span class="lineno">11</span>     <span class="n">_</span><span class="p">,</span> <span class="n">cond</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">f</span> <span class="o">=</span> <span class="n">sexp</span>
+<span class="lineno">12</span>     <span class="n">cond_result</span> <span class="o">=</span> <span class="n">process</span><span class="p">(</span><span class="n">cond</span><span class="p">)</span>
+<span class="lineno">13</span>     <span class="k">unless</span> <span class="o">[</span><span class="kp">false</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">Float</span><span class="o">::</span><span class="no">NAN</span><span class="p">,</span> <span class="kp">nil</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="o">].</span><span class="n">include?</span><span class="p">(</span><span class="n">cond_result</span><span class="p">)</span>
+<span class="lineno">14</span>       <span class="n">process</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="lineno">15</span>     <span class="k">else</span>
+<span class="lineno">16</span>       <span class="n">process</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="lineno">17</span>     <span class="k">end</span>
+<span class="lineno">18</span>   <span class="k">end</span>
+<span class="lineno">19</span> 
+<span class="lineno">20</span>   <span class="k">def</span> <span class="nf">process_block</span><span class="p">(</span><span class="n">sexp</span><span class="p">)</span>
+<span class="lineno">21</span>     <span class="n">process</span><span class="p">(</span><span class="n">exp</span><span class="o">.</span><span class="n">rest</span><span class="p">)</span>
+<span class="lineno">22</span>   <span class="k">end</span>
+<span class="lineno">23</span> 
+<span class="lineno">24</span>   <span class="k">def</span> <span class="nf">process_resolve</span><span class="p">(</span><span class="n">sexp</span><span class="p">)</span>
+<span class="lineno">25</span>     <span class="n">_</span><span class="p">,</span> <span class="n">res</span> <span class="o">=</span> <span class="n">sexp</span>
+<span class="lineno">26</span>     <span class="k">case</span> <span class="n">res</span>
+<span class="lineno">27</span>     <span class="k">when</span> <span class="s2">&quot;NaN&quot;</span>
+<span class="lineno">28</span>       <span class="nb">Float</span><span class="o">::</span><span class="no">NAN</span>
+<span class="lineno">29</span>     <span class="k">when</span> <span class="s2">&quot;undefined&quot;</span>
+<span class="lineno">30</span>       <span class="kp">nil</span>
+<span class="lineno">31</span>     <span class="k">else</span>
+<span class="lineno">32</span>       <span class="k">raise</span> <span class="s1">&#39;oh, noes&#39;</span>
+<span class="lineno">33</span>     <span class="k">end</span>
+<span class="lineno">34</span>   <span class="k">end</span>
+<span class="lineno">35</span> 
+<span class="lineno">36</span>   <span class="k">def</span> <span class="nf">process_nil</span><span class="p">(</span><span class="n">sexp</span><span class="p">)</span>
+<span class="lineno">37</span>     <span class="kp">nil</span>
+<span class="lineno">38</span>   <span class="k">end</span>
+<span class="lineno">39</span> <span class="k">end</span>
+</pre></div>
+</div>
+<div class='code-example step' data-rotate='362' data-x='7096' data-y='248'>
+<div class="highlight"><pre><span class="cp"># Running:</span>
+
+<span class="p">....</span>
+
+<span class="n">Fabulous</span> <span class="n">run</span> <span class="n">in</span> <span class="mf">0.026653</span><span class="n">s</span><span class="p">,</span> <span class="mf">150.0769</span> <span class="n">runs</span><span class="o">/</span><span class="n">s</span><span class="p">,</span> <span class="mf">375.1923</span> <span class="n">assertions</span><span class="o">/</span><span class="n">s</span><span class="p">.</span>
+
+<span class="mi">4</span> <span class="n">runs</span><span class="p">,</span> <span class="mi">10</span> <span class="n">assertions</span><span class="p">,</span> <span class="mi">0</span> <span class="n">failures</span><span class="p">,</span> <span class="mi">0</span> <span class="n">errors</span><span class="p">,</span> <span class="mi">0</span> <span class="n">skips</span>
+</pre></div>
+</div>
+<div class='code-example step' data-rotate='370' data-x='7298' data-y='1287'>
+<div class="highlight"><pre><span class="lineno"> 1</span> <span class="k">module</span> <span class="nn">RubyScript</span>
+<span class="lineno"> 2</span>   <span class="k">class</span> <span class="nc">InterpreterTest</span> <span class="o">&lt;</span> <span class="ss">Minitest</span><span class="p">:</span><span class="ss">:Unit</span><span class="o">::</span><span class="no">TestCase</span>
+<span class="lineno"> 3</span>     <span class="k">def</span> <span class="nf">test_argless_function</span>
+<span class="lineno"> 4</span>       <span class="n">assert_eval</span> <span class="mi">42</span><span class="p">,</span> <span class="s1">&#39;myFun = function () { return 42; }; myFun()&#39;</span>
+<span class="lineno"> 5</span>       <span class="n">assert_eval</span> <span class="mi">42</span><span class="p">,</span> <span class="s1">&#39;function myFun() { return 42; }; myFun()&#39;</span>
+<span class="lineno"> 6</span>     <span class="k">end</span>
+<span class="lineno"> 7</span> 
+<span class="lineno"> 8</span>     <span class="k">def</span> <span class="nf">test_function_with_args</span>
+<span class="lineno"> 9</span>       <span class="n">assert_eval</span> <span class="mi">42</span><span class="p">,</span> <span class="s1">&#39;foo = function(bar) { return bar; }; foo(42);&#39;</span>
+<span class="lineno">10</span>     <span class="k">end</span>
+<span class="lineno">11</span>   <span class="k">end</span>
+<span class="lineno">12</span> <span class="k">end</span>
+</pre></div>
+</div>
+<div class='code-example step' data-rotate='378' data-x='7356' data-y='2390'>
+<div class="highlight"><pre><span class="lineno"> 1</span> <span class="k">module</span> <span class="nn">RubyScript</span>
+<span class="lineno"> 2</span>   <span class="k">class</span> <span class="nc">Interpreter</span> <span class="o">&lt;</span> <span class="no">SexpInterpreter</span>
+<span class="lineno"> 3</span>     <span class="k">def</span> <span class="nf">process_func_expr</span><span class="p">(</span><span class="n">sexp</span><span class="p">)</span>
+<span class="lineno"> 4</span>       <span class="n">extract_function_from</span><span class="p">(</span><span class="n">sexp</span><span class="p">)</span>
+<span class="lineno"> 5</span>     <span class="k">end</span>
+<span class="lineno"> 6</span> 
+<span class="lineno"> 7</span>     <span class="k">def</span> <span class="nf">process_function_call</span><span class="p">(</span><span class="n">sexp</span><span class="p">)</span>
+<span class="lineno"> 8</span>       <span class="n">function_called</span> <span class="o">=</span> <span class="n">process</span> <span class="n">sexp</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span>
+<span class="lineno"> 9</span>       <span class="n">args</span> <span class="o">=</span> <span class="n">sexp</span><span class="o">[</span><span class="mi">2</span><span class="o">].</span><span class="n">rest</span>
+<span class="lineno">10</span>       <span class="n">function_called</span><span class="o">[</span><span class="mi">0</span><span class="o">].</span><span class="n">zip</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="p">{</span><span class="o">|</span><span class="nb">name</span><span class="p">,</span> <span class="n">value</span><span class="o">|</span>
+<span class="lineno">11</span>         <span class="vi">@stack</span><span class="o">[</span><span class="nb">name</span><span class="o">]</span> <span class="o">=</span> <span class="n">process</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+<span class="lineno">12</span>       <span class="p">}</span>
+<span class="lineno">13</span>       <span class="n">process</span> <span class="n">function_called</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span>
+<span class="lineno">14</span>     <span class="k">end</span>
+<span class="lineno">15</span>   <span class="k">end</span>
+<span class="lineno">16</span> <span class="k">end</span>
+</pre></div>
+</div>
+<div class='code-example step' data-rotate='385' data-x='7278' data-y='3394'>
+<div class="highlight"><pre><span class="lineno"> 1</span> <span class="k">module</span> <span class="nn">RubyScript</span>
+<span class="lineno"> 2</span>   <span class="k">class</span> <span class="nc">Interpreter</span> <span class="o">&lt;</span> <span class="no">SexpInterpreter</span>
+<span class="lineno"> 3</span>     <span class="k">def</span> <span class="nf">process_func_body</span><span class="p">(</span><span class="n">sexp</span><span class="p">)</span>
+<span class="lineno"> 4</span>       <span class="n">return_val</span> <span class="o">=</span> <span class="kp">catch</span><span class="p">(</span><span class="ss">:return</span><span class="p">)</span> <span class="p">{</span>
+<span class="lineno"> 5</span>         <span class="n">sexp</span><span class="o">.</span><span class="n">rest</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">sub_sexp</span><span class="o">|</span>
+<span class="lineno"> 6</span>           <span class="n">process</span> <span class="n">sub_sexp</span>
+<span class="lineno"> 7</span>         <span class="k">end</span>
+<span class="lineno"> 8</span>       <span class="p">}</span>
+<span class="lineno"> 9</span>       <span class="n">return_val</span>
+<span class="lineno">10</span>     <span class="k">end</span>
+<span class="lineno">11</span> 
+<span class="lineno">12</span>     <span class="k">def</span> <span class="nf">process_func_decl</span><span class="p">(</span><span class="n">sexp</span><span class="p">)</span>
+<span class="lineno">13</span>       <span class="nb">name</span> <span class="o">=</span> <span class="n">sexp</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span>
+<span class="lineno">14</span>       <span class="vi">@stack</span><span class="o">[</span><span class="nb">name</span><span class="o">]</span> <span class="o">=</span> <span class="n">extract_function_from</span><span class="p">(</span><span class="n">sexp</span><span class="p">)</span>
+<span class="lineno">15</span>     <span class="k">end</span>
+<span class="lineno">16</span> 
+<span class="lineno">17</span>     <span class="k">def</span> <span class="nf">process_empty</span><span class="p">(</span><span class="n">sexp</span><span class="p">)</span>
+<span class="lineno">18</span>       <span class="kp">nil</span>
+<span class="lineno">19</span>     <span class="k">end</span>
+<span class="lineno">20</span> 
+<span class="lineno">21</span>     <span class="k">def</span> <span class="nf">process_return</span><span class="p">(</span><span class="n">sexp</span><span class="p">)</span>
+<span class="lineno">22</span>       <span class="kp">throw</span> <span class="ss">:return</span><span class="p">,</span> <span class="n">process</span><span class="p">(</span><span class="n">sexp</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span><span class="p">)</span>
+<span class="lineno">23</span>     <span class="k">end</span>
+<span class="lineno">24</span>   <span class="k">end</span>
+<span class="lineno">25</span> <span class="k">end</span>
+</pre></div>
+</div>
+<div class='step' data-x='0' data-y='0' data-z='15000'></div>
+</div>
+<script src='js/impress.js'></script>
+<script>
+  impress().init();
+</script>
+</body>
+</html>
