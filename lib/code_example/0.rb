@@ -7,6 +7,7 @@ class Interpreter < SexpInterpreter
 
   def initialize
     super
+    @stack = {} # hacky hacky hacky hack!
     @parser = RKelly::Parser.new
   end
 

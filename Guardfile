@@ -1,5 +1,6 @@
 # A sample Guardfile
 # More info at https://github.com/guard/guard#readme
+require 'pygments'
 
 guard 'haml', :output => '.', :input => 'lib', :haml_options => { :ugly => true } do
   watch %r{^lib/.+(\.html\.haml)}

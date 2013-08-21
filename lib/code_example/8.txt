@@ -1,0 +1,7 @@
+# Running:
+
+.
+
+Fabulous run in 0.018114s, 55.2059 runs/s, 110.4118 assertions/s.
+
+1 runs, 2 assertions, 0 failures, 0 errors, 0 skips

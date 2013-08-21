@@ -1,0 +1,12 @@
+# Running:
+
+F
+
+Fabulous run in 0.028141s, 35.5353 runs/s, 35.5353 assertions/s.
+
+  1) Failure:
+RubyScript::InterpreterTest#test_sanity
+Expected: 3
+  Actual: nil
+
+1 runs, 1 assertions, 1 failures, 0 errors, 0 skips

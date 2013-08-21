@@ -1,0 +1,11 @@
+# Running:
+
+E
+
+Fabulous run in 0.022017s, 45.4194 runs/s, 0.0000 assertions/s.
+
+  1) Error:
+RubyScript::InterpreterTest#test_sanity:
+RuntimeError: [:expression, [:lit, 3]]
+
+1 runs, 0 assertions, 0 failures, 1 errors, 0 skips

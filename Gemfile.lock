@@ -28,10 +28,14 @@ GEM
     lumberjack (1.0.4)
     method_source (0.8.1)
     minitest (5.0.4)
+    posix-spawn (0.3.6)
     pry (0.9.12.2)
       coderay (~> 1.0.5)
       method_source (~> 0.8)
       slop (~> 3.4)
+    pygments.rb (0.5.2)
+      posix-spawn (~> 0.3.6)
+      yajl-ruby (~> 1.1.0)
     rb-fsevent (0.9.3)
     rb-inotify (0.9.0)
       ffi (>= 0.5.0)
@@ -43,6 +47,7 @@ GEM
     slop (3.4.5)
     thor (0.18.1)
     tilt (1.4.1)
+    yajl-ruby (1.1.0)
 
 PLATFORMS
   ruby
@@ -54,6 +59,7 @@ DEPENDENCIES
   guard-sass
   haml
   minitest
+  pygments.rb
   rb-fsevent
   rkelly
   sass

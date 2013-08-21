@@ -65,22 +65,48 @@
         =`pygmentize -f html -O linenos=1 lib/code_example/1.rb`
 
       .code-example.step{'data-x' => '-296', 'data-y' => '-4238', 'data-rotate' => '266'}
+        = Pygments.highlight(File.read('lib/code_example/2.txt'))
+
       .code-example.step{'data-x' => '795', 'data-y' => '-4510', 'data-rotate' => '280'}
+        = Pygments.highlight(File.read('lib/code_example/3.rb'), lexer: 'ruby', options: {linenos: 'inline'})
+
       .code-example.step{'data-x' => '1918', 'data-y' => '-4519', 'data-rotate' => '293'}
+        = Pygments.highlight(File.read('lib/code_example/4.txt'))
+
       .code-example.step{'data-x' => '3002', 'data-y' => '-4288', 'data-rotate' => '305'}
+        = Pygments.highlight(File.read('lib/code_example/5.rb'), lexer: 'ruby', options: {linenos: 'inline'})
+
       .code-example.step{'data-x' => '3993', 'data-y' => '-3856', 'data-rotate' => '316'}
+        = Pygments.highlight(File.read('lib/code_example/6.txt'))
+
       .code-example.step{'data-x' => '4855', 'data-y' => '-3275', 'data-rotate' => '326'}
+        = Pygments.highlight(File.read('lib/code_example/7.rb'), lexer: 'ruby', options: {linenos: 'inline'})
+
       .code-example.step{'data-x' => '5644', 'data-y' => '-2513', 'data-rotate' => '336'}
+        = Pygments.highlight(File.read('lib/code_example/8.txt'))
+
       .code-example.step{'data-x' => '6262', 'data-y' => '-1678', 'data-rotate' => '345'}
+        = Pygments.highlight(File.read('lib/code_example/9.rb'), lexer: 'ruby', options: {linenos: 'inline'})
+
       .code-example.step{'data-x' => '6766', 'data-y' => '-711', 'data-rotate' => '354'}
+        = Pygments.highlight(File.read('lib/code_example/10.rb'), lexer: 'ruby', options: {linenos: 'inline'})
+
       .code-example.step{'data-x' => '7096', 'data-y' => '248', 'data-rotate' => '362'}
+        = Pygments.highlight(File.read('lib/code_example/11.txt'))
+
       .code-example.step{'data-x' => '7298', 'data-y' => '1287', 'data-rotate' => '370'}
-      .step{'data-x' => '7356', 'data-y' => '2390', 'data-rotate' => '378'}
-      .step{'data-x' => '7278', 'data-y' => '3394', 'data-rotate' => '385'}
-      .step{'data-x' => '7070', 'data-y' => '4418', 'data-rotate' => '392'}
-      .step{'data-x' => '6726', 'data-y' => '5446', 'data-rotate' => '399'}
-      .step{'data-x' => '6319', 'data-y' => '6319', 'data-rotate' => '405'}
-      .step{'data-x' => '5807', 'data-y' => '7172', 'data-rotate' => '411'}
+        = Pygments.highlight(File.read('lib/code_example/12.rb'), lexer: 'ruby', options: {linenos: 'inline'})
+
+      .code-example.step{'data-x' => '7356', 'data-y' => '2390', 'data-rotate' => '378'}
+        = Pygments.highlight(File.read('lib/code_example/13.rb'), lexer: 'ruby', options: {linenos: 'inline'})
+
+      .code-example.step{'data-x' => '7278', 'data-y' => '3394', 'data-rotate' => '385'}
+        = Pygments.highlight(File.read('lib/code_example/14.rb'), lexer: 'ruby', options: {linenos: 'inline'})
+
+      .code-example.step{'data-x' => '7070', 'data-y' => '4418', 'data-rotate' => '392'}
+      .code-example.step{'data-x' => '6726', 'data-y' => '5446', 'data-rotate' => '399'}
+      .code-example.step{'data-x' => '6319', 'data-y' => '6319', 'data-rotate' => '405'}
+      .code-example.step{'data-x' => '5807', 'data-y' => '7172', 'data-rotate' => '411'}
       .step{'data-x' => '5190', 'data-y' => '7992', 'data-rotate' => '417'}
       .step{'data-x' => '4467', 'data-y' => '8767', 'data-rotate' => '423'}
       .step{'data-x' => '3641', 'data-y' => '9486', 'data-rotate' => '429'}

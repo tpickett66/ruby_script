@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rkelly'
 gem 'sexp_processor'
+gem 'pygments.rb'
 
 group :test do
   gem 'minitest'

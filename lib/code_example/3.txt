@@ -1,0 +1,11 @@
+# Running:
+
+E
+
+Fabulous run in 0.020414s, 48.9860 runs/s, 0.0000 assertions/s.
+
+  1) Error:
+RubyScript::InterpreterTest#test_sanity:
+UnknownNodeError: Bug! Unknown node-type :expression to RubyScript::Interpreter
+
+1 runs, 0 assertions, 0 failures, 1 errors, 0 skips
